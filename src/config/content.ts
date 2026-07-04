@@ -171,7 +171,7 @@ David`,
 
   finalRevealTitle: "Your final surprise is here",
   finalRevealButtonLabel: "Open final surprise",
-  finalRevealText: "TOO many more memories!",
+  finalRevealText: "TO many more memories!",
   finalRevealVideoUrl: "https://drive.google.com/file/d/1-z_17914DMP6DTL0Mk50mDElniU91xZX/view",
   backgroundMusicYoutubeUrl: "https://www.youtube.com/watch?v=SUvHWZ3iiJo&list=RDSUvHWZ3iiJo&start_radio=1"
 };

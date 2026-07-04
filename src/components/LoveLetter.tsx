@@ -22,7 +22,12 @@ export function LoveLetter() {
       let nextSize = MAX_LETTER_FONT_SIZE;
       body.style.fontSize = `${nextSize}px`;
 
-      while (nextSize > MIN_LETTER_FONT_SIZE && content.scrollHeight > content.clientHeight) {
+      while (
+        nextSize > MIN_LETTER_FONT_SIZE &&
+        (content.scrollHeight > content.clientHeight ||
+          content.scrollWidth > content.clientWidth ||
+          body.scrollWidth > body.clientWidth)
+      ) {
         nextSize -= 1;
         body.style.fontSize = `${nextSize}px`;
       }

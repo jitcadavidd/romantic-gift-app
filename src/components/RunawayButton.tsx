@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 
 type RunawayButtonProps = {
   label: string;
@@ -27,6 +27,7 @@ export function RunawayButton({ label, onAttempt }: RunawayButtonProps) {
   const buttonRef = useRef<HTMLButtonElement>(null);
   const [position, setPosition] = useState<Position | null>(null);
   const [buttonWidth, setButtonWidth] = useState<number | null>(null);
+  const [hasEscaped, setHasEscaped] = useState(false);
   const lastAttemptAtRef = useRef(0);
 
   const getSafeRandomPosition = useCallback((avoidPoint?: Point): Position => {
@@ -92,9 +93,21 @@ export function RunawayButton({ label, onAttempt }: RunawayButtonProps) {
 
   const moveButton = useCallback(
     (avoidPoint?: Point) => {
+      const anchor = anchorRef.current;
+
+      if (!hasEscaped && anchor) {
+        const anchorRect = anchor.getBoundingClientRect();
+        setButtonWidth(anchorRect.width);
+        setPosition({
+          x: anchorRect.left,
+          y: anchorRect.top
+        });
+      }
+
+      setHasEscaped(true);
       setPosition(getSafeRandomPosition(avoidPoint));
     },
-    [getSafeRandomPosition]
+    [getSafeRandomPosition, hasEscaped]
   );
 
   const attemptEscape = useCallback(
@@ -112,20 +125,39 @@ export function RunawayButton({ label, onAttempt }: RunawayButtonProps) {
     [moveButton, onAttempt]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
+    if (hasEscaped) {
+      return;
+    }
+
     const anchor = anchorRef.current;
 
     if (!anchor) {
       return;
     }
 
-    const anchorRect = anchor.getBoundingClientRect();
-    setButtonWidth(anchorRect.width);
-    setPosition({
-      x: anchorRect.left,
-      y: anchorRect.top
-    });
-  }, []);
+    const anchorElement = anchor;
+
+    function syncWithAnchor() {
+      const anchorRect = anchorElement.getBoundingClientRect();
+      setButtonWidth(anchorRect.width);
+      setPosition({
+        x: anchorRect.left,
+        y: anchorRect.top
+      });
+    }
+
+    syncWithAnchor();
+
+    const observer = new ResizeObserver(syncWithAnchor);
+    observer.observe(anchorElement);
+    window.addEventListener("scroll", syncWithAnchor, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", syncWithAnchor);
+    };
+  }, [hasEscaped]);
 
   useEffect(() => {
     function handleWindowResize() {
@@ -199,17 +231,22 @@ export function RunawayButton({ label, onAttempt }: RunawayButtonProps) {
   return (
     <div className="runaway-zone" ref={anchorRef}>
       <button
-        className="button button--secondary runaway-button"
+        className={`button button--secondary runaway-button ${
+          hasEscaped ? "runaway-button--escaped" : ""
+        }`}
         onClick={handleClick}
         onFocus={handleFocus}
         onPointerDown={handlePointerDown}
         ref={buttonRef}
-        style={{
-          left: position ? `${position.x}px` : undefined,
-          top: position ? `${position.y}px` : undefined,
-          width: buttonWidth ? `${buttonWidth}px` : undefined,
-          visibility: position ? "visible" : "hidden"
-        }}
+        style={
+          hasEscaped
+            ? {
+                left: position ? `${position.x}px` : undefined,
+                top: position ? `${position.y}px` : undefined,
+                width: buttonWidth ? `${buttonWidth}px` : undefined
+              }
+            : undefined
+        }
         type="button"
       >
         {label}
