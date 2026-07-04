@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap");
+
+:root {
+  --color-baby-blue: #d7e8f7;
+  --color-baby-blue-soft: #edf7fc;
+  --color-cream: #fff7e6;
+  --color-cream-soft: #fffaf0;
+  --color-pastel-green: #dce9d1;
+  --color-pastel-green-soft: #eef6e8;
+  --color-olive: #7a8f5a;
+  --color-olive-dark: #5f7044;
+  --color-soft-beige: #f2e9d8;
+  --color-paper: #f8ecd0;
+  --color-paper-dark: #d8b979;
+  --color-blush: #f2b8b5;
+  --color-text: #4d5738;
+  --color-white-flower: #fffdf5;
+  --shadow-soft: 0 18px 52px rgba(77, 87, 56, 0.16);
+  --shadow-card: 0 10px 30px rgba(77, 87, 56, 0.14);
+  --radius-xl: 34px;
+  --radius-lg: 26px;
+  --radius-md: 18px;
+  --radius-sm: 12px;
+  --font-ui: "Inter", system-ui, sans-serif;
+  --font-heading: "Playfair Display", Georgia, serif;
+  --font-handwritten: "Caveat", cursive;
+}

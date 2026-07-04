@@ -1,0 +1,25 @@
+# Acceptance Checklist
+
+- [ ] App starts on intro.
+- [ ] Floral assets are copied into `public/assets/decorations`.
+- [ ] Parchment asset is copied into `public/assets/paper`.
+- [ ] Floral corners render from image assets, not CSS drawings.
+- [ ] `No` button remains visible and moves away.
+- [ ] `Yes` opens quiz.
+- [ ] Quiz text answers ignore casing and extra spaces.
+- [ ] Quiz supports Romanian characters.
+- [ ] Wrong answers show cute feedback and do not advance.
+- [ ] Quiz completion opens flower game.
+- [ ] Six flowers are visible and tappable.
+- [ ] Flower labels/messages are not exposed before click as visible content.
+- [ ] Collected flower cannot increment progress twice.
+- [ ] Letter unlock appears only after all flowers are collected.
+- [ ] Letter uses the parchment image asset as its paper.
+- [ ] Letter uses configurable title/body and preserves line breaks.
+- [ ] Carousel shows central sharp photo and blurred side photos.
+- [ ] Carousel arrows, dots, wraparound, and swipe work.
+- [ ] Missing photos show fallback UI.
+- [ ] Final reveal is hidden until click.
+- [ ] Mobile at 360px has no horizontal scroll.
+- [ ] Reduced motion disables nonessential animation.
+- [ ] `npm run build` succeeds.
