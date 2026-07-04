@@ -4,6 +4,7 @@ import { DecorativeCorners } from "./DecorativeCorners";
 
 const MAX_LETTER_FONT_SIZE = 26;
 const MIN_LETTER_FONT_SIZE = 13;
+const MOBILE_MIN_LETTER_FONT_SIZE = 9;
 
 export function LoveLetter() {
   const contentRef = useRef<HTMLElement>(null);
@@ -19,11 +20,15 @@ export function LoveLetter() {
         return;
       }
 
+      const minimumFontSize =
+        window.matchMedia("(max-width: 520px)").matches
+          ? MOBILE_MIN_LETTER_FONT_SIZE
+          : MIN_LETTER_FONT_SIZE;
       let nextSize = MAX_LETTER_FONT_SIZE;
       body.style.fontSize = `${nextSize}px`;
 
       while (
-        nextSize > MIN_LETTER_FONT_SIZE &&
+        nextSize > minimumFontSize &&
         (content.scrollHeight > content.clientHeight ||
           content.scrollWidth > content.clientWidth ||
           body.scrollWidth > body.clientWidth)

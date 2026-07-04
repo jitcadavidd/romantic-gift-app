@@ -26,14 +26,24 @@ export function FinalReveal() {
             <p className="small-heart" aria-hidden="true" />
             <p>{romanticContent.finalRevealText}</p>
             {finalVideoUrl && (
-              <div className="final-video">
-                <iframe
-                  allow="autoplay; encrypted-media; picture-in-picture; web-share"
-                  allowFullScreen
-                  src={finalVideoUrl}
-                  title="Final surprise video"
-                />
-              </div>
+              <>
+                <div className="final-video">
+                  <iframe
+                    allow="autoplay; encrypted-media; picture-in-picture; web-share"
+                    allowFullScreen
+                    src={finalVideoUrl}
+                    title="Final surprise video"
+                  />
+                </div>
+                <a
+                  className="video-fallback-link"
+                  href={romanticContent.finalRevealVideoUrl}
+                  rel="noreferrer"
+                  target="_blank"
+                >
+                  Open video in Google Drive
+                </a>
+              </>
             )}
           </div>
         )}
